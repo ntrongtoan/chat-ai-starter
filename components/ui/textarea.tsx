@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 
-const inputVariants = cva("", {
+const textareaVariants = cva("", {
   variants: {
     state: {
       default: "border-gray-300",
@@ -16,29 +16,29 @@ const inputVariants = cva("", {
   },
 });
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof inputVariants> {
+export interface TextAreaProps
+  extends React.InputHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof textareaVariants> {
   asChild?: boolean;
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, state, ...props }, ref) => {
+const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  ({ className, state, ...props }, ref) => {
     return (
-      <input
-        type={type}
+      <textarea
         className={cn(
-          "flex h-8 w-full rounded-sm border shadow-inner bg-gray-100 p-2 text-sm placeholder:text-muted-foreground transition-all duration-100 outline-none",
+          "flex w-full rounded-sm border bg-gray-100 px-2 py-1 text-sm placeholder:text-muted-foreground transition-all duration-100 outline-none",
           "focus-visible:shadow-none focus-visible:border-blue-600 focus-visible:bg-white disabled:cursor-not-allowed disabled:opacity-50",
-          inputVariants({ state }),
+          textareaVariants({ state }),
           className
         )}
         ref={ref}
+        rows={4}
         {...props}
       />
     );
   }
 );
-Input.displayName = "Input";
+TextArea.displayName = "TextArea";
 
-export { Input };
+export { TextArea };
