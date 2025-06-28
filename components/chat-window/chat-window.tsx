@@ -7,6 +7,7 @@ import ChatHeader from "../chat-header/ChatHeader";
 import ChatInput from "../chat-input/ChatInput";
 import IntentDrawer from "../intent-drawer/IntentDrawer";
 import { PoweredLogo } from "../power-logo/powered-logo";
+import { ChatManager } from "@/core/manager/chat-manager";
 
 const chatVariants = cva("relative flex flex-col bg-primary border-l", {
   variants: {
@@ -45,7 +46,7 @@ const chatVariants = cva("relative flex flex-col bg-primary border-l", {
   },
 });
 
-export default function ChatWindow({ manager }: { manager }) {
+export default function ChatWindow({ manager }: { manager: ChatManager }) {
   // const { open, inputMessageShow, intentDrawerShow } = useLauncherStore(
   //   (state) => ({
   //     open: state.open,

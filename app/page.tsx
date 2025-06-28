@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ChatWindow from "@/components/chat-window/chat-window";
-import { useChatManager } from "@/core/use-chat";
+import { useChatManager } from "@/core/manager/use-chat-manager";
 
 const iconClassName =
   "rounded-full border bg-card text-card-foreground shadow-xl p-4";
@@ -65,21 +65,22 @@ const welcomeMessages = [
 export default function Home() {
   const [title, setTitle] = useState("Chat Toolkit");
   const chatManager = useChatManager({
-    messageTypes: [TextMessageType, ButtonMessageType],
+    // messageTypes: [TextMessageType, ButtonMessageType],
+    messageTypes: [],
   });
 
-  useEffect(() => {
-    if (!chatManager) return;
+  // useEffect(() => {
+  //   if (!chatManager) return;
 
-    const sendWelcomeMessages = () => {
-      const message = welcomeMessages.shift();
-      if (!message) return;
-      chatManager.sendMessage([message]);
-      setTimeout(sendWelcomeMessages, 300);
-    };
+  //   const sendWelcomeMessages = () => {
+  //     const message = welcomeMessages.shift();
+  //     if (!message) return;
+  //     chatManager.sendMessage([message]);
+  //     setTimeout(sendWelcomeMessages, 300);
+  //   };
 
-    setTimeout(sendWelcomeMessages, 800);
-  }, [chatManager]);
+  //   setTimeout(sendWelcomeMessages, 800);
+  // }, [chatManager]);
 
   return (
     <div className={cn("flex min-h-screen", bgGradient2ClassName)}>
