@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AppWindowMac,
   AudioLines,
@@ -11,6 +11,8 @@ import {
   MessageCircleQuestion,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ChatWindow from "@/components/chat-window/chat-window";
+import { useChatManager } from "@/core/manager/use-chat-manager";
 
 const iconClassName =
   "rounded-full border bg-card text-card-foreground shadow-xl p-4";
@@ -26,8 +28,60 @@ const textHeading3ClassName =
   "bg-gradient-to-r from-slate-300 to-slate-500 bg-clip-text text-transparent";
 const bgGradient2ClassName = "bg-gradient-to-tr from-violet-50 to-pink-50";
 
+const welcomeMessages = [
+  {
+    type: "text",
+    text: "Hello, welcome to the demo chat!",
+    isBot: true,
+  },
+  {
+    type: "text",
+    text: "I'm a demo chatbot, how can I help you today?",
+    isBot: true,
+  },
+  {
+    type: "text",
+    text: "You can test the chatbot by clicking the buttons below.",
+    isBot: true,
+  },
+  {
+    type: "button",
+    text: "Click me",
+    isBot: true,
+    buttons: [
+      {
+        text: "Help",
+      },
+      {
+        text: "About",
+      },
+      {
+        text: "Contact",
+      },
+    ],
+  },
+];
+
 export default function Home() {
   const [title, setTitle] = useState("Chat Toolkit");
+  const chatManager = useChatManager({
+    // messageTypes: [TextMessageType, ButtonMessageType],
+    messageTypes: [],
+  });
+
+  // useEffect(() => {
+  //   if (!chatManager) return;
+
+  //   const sendWelcomeMessages = () => {
+  //     const message = welcomeMessages.shift();
+  //     if (!message) return;
+  //     chatManager.sendMessage([message]);
+  //     setTimeout(sendWelcomeMessages, 300);
+  //   };
+
+  //   setTimeout(sendWelcomeMessages, 800);
+  // }, [chatManager]);
+
   return (
     <div className={cn("flex min-h-screen", bgGradient2ClassName)}>
       <div className="space-y-4 p-4 flex-1 shadow-demo">
@@ -124,7 +178,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="p-4 w-[420px] bg-[#f5f2f9]"></div>
+      <div className="w-[420px] bg-[#f5f2f9]">
+        <ChatWindow manager={chatManager} />
+      </div>
     </div>
   );
 }
